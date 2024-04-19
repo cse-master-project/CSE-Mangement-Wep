@@ -27,7 +27,7 @@
           class="textbox"
           maxlength="300"
         />
-
+        <!--OX-->
         <q-option-group v-model="selectedAnswer" :options="options" inline />
 
         <q-input
@@ -38,7 +38,7 @@
           autogrow
           style="margin: 3% 0"
         />
-
+        <!--첨부파일-->
         <section class="container">
           <label for="file">
             <div class="styled-file-input">
@@ -49,14 +49,19 @@
           <input type="file" id="file" @change="fileInputHandler" />
         </section>
       </q-card-section>
+
       <q-card-actions align="right">
         <q-btn
           class="backbtn"
           @click="goBack()"
-          style="width: 10%; margin: 3% 0"
+          style="width: 10%; margin: 3% 1%"
           >뒤로</q-btn
         >
-        <q-btn class="registerbtn" style="width: 10%; margin: 3% 0"
+
+        <q-btn
+          class="registerbtn"
+          @click="submitQuiz"
+          style="width: 10%; margin: 3% 0"
           >문제 등록</q-btn
         >
       </q-card-actions>
@@ -69,8 +74,8 @@ import { ref, defineEmits } from 'vue';
 import { QInput, QOptionGroup } from 'quasar';
 
 const options = [
-  { label: 'O', value: 'O' },
-  { label: 'X', value: 'X' },
+  { label: 'O', value: '1' },
+  { label: 'X', value: '0' },
 ];
 
 const mainCategoryOptions = [
@@ -104,6 +109,19 @@ const fileInputHandler = event => {
     fileName.value = event.target.files[0].name;
   }
 };
+const submitQuiz = () => {
+  // 여기에 문제 제출 로직을 구현합니다.
+  console.log('제출된 문제:', {
+    mainCategory: mainCategory.value, //대
+    subCategory: subCategory.value, //소
+    question: question.value, //문제
+    selectedAnswer: selectedAnswer.value,
+    commentary: commentary.value, //해설
+    fileName: fileName.value, //첨부파일
+  });
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '/src\css\QuizBtn.css';
+</style>

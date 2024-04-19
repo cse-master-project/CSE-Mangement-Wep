@@ -48,6 +48,7 @@
           style="margin: 3% 0"
         />
 
+        <!--첨부파일-->
         <section class="container">
           <label for="file">
             <div class="styled-file-input">
@@ -58,14 +59,18 @@
           <input type="file" id="file" @change="fileInputHandler" />
         </section>
       </q-card-section>
+
       <q-card-actions align="right">
         <q-btn
           class="backbtn"
           @click="goBack()"
-          style="width: 10%; margin: 3% 0"
+          style="width: 10%; margin: 3% 01%"
           >뒤로</q-btn
         >
-        <q-btn class="registerbtn" style="width: 10%; margin: 3% 0"
+        <q-btn
+          class="registerbtn"
+          @click="submitQuiz"
+          style="width: 10%; margin: 3% 0"
           >문제 등록</q-btn
         >
       </q-card-actions>
@@ -108,8 +113,21 @@ const fileInputHandler = event => {
     fileName.value = event.target.files[0].name;
   }
 };
+const submitQuiz = () => {
+  // 여기에 문제 제출 로직을 구현합니다.
+  console.log('제출된 문제:', {
+    mainCategory: mainCategory.value, //대
+    subCategory: subCategory.value, //소
+    question: question.value, //문제
+    answers: answers.value, //답리스트
+    commentary: commentary.value, //해설
+    fileName: fileName.value, //첨부파일
+  });
+};
 </script>
 
 <style scoped lang="scss">
+@import '/src\css\QuizBtn.css';
+
 /* 추가적인 스타일링은 필요에 따라 적용하세요 */
 </style>

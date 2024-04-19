@@ -71,7 +71,7 @@
         <q-btn
           class="backbtn"
           @click="goBack()"
-          style="width: 10%; margin: 3% 0"
+          style="width: 10%; margin: 3% 1%"
           >뒤로</q-btn
         >
         <q-btn
@@ -145,87 +145,17 @@ const goBack = () => {
 const submitQuiz = () => {
   // 여기에 문제 제출 로직을 구현합니다.
   console.log('제출된 문제:', {
-    quizTitle: quizTitle.value,
-    mainCategory: mainCategory.value,
-    subCategory: subCategory.value,
-    question: question.value,
-    correctAnswer: correctAnswer.value,
-    explanation: explanation.value,
+    mainCategory: mainCategory.value, //대
+    subCategory: subCategory.value, //소
+    question: question.value, //문제
+    answer: answer.value, //답
+    choices: choices.value, //보기
+    commentary: commentary.value, //해설
+    fileName: fileName.value, //첨부파일
   });
 };
 </script>
 
 <style scoped>
-.custom-file-upload {
-  position: relative;
-  display: inline-block;
-}
-
-.custom-file-upload input[type='file'] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-
-.custom-file-upload label {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #000;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.custom-file-upload label:hover {
-  background-color: #0056b3;
-}
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.styled-file-input {
-  display: flex;
-  align-items: center; /* 요소들을 가운데 정렬합니다 */
-  gap: 16px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  width: 400px;
-}
-
-.attachment-button {
-  width: fit-content;
-  padding: 16px;
-  background-color: #191b27;
-  border-radius: 12px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-input[type='file'] {
-  display: none;
-}
-
-.attached-file {
-  font-size: 16px;
-  font-weight: bold;
-  color: #999;
-  text-align: center;
-}
-.registerbtn {
-  width: fit-content;
-  padding: 16px;
-  background-color: #191b27;
-  border-radius: 12px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
+@import '/src\css\QuizBtn.css';
 </style>
