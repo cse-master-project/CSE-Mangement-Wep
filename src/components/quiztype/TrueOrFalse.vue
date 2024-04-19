@@ -96,8 +96,8 @@ const emits = defineEmits(['change-quiz-type']);
 const goBack = () => {
   emits('change-quiz-type', '');
 };
+//첨부파일명 표시
 const fileName = ref('');
-
 const fileInputHandler = event => {
   const files = event.target && event.target.files;
   if (files && files[0]) {
