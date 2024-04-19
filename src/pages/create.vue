@@ -24,7 +24,7 @@ const quizType = ref('');
 const changeQuizType = mode => {
   quizType.value = mode;
 };
-// 동적컴포넌트 정의 (비동기적)
+// 동적컴포넌트 정의 (비동기적)g
 const quizTypeViewForm = {
   MultipleChoice: defineAsyncComponent(() =>
     import('src/components/quiztype/MultipleChoice.vue'),

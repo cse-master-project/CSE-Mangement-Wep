@@ -18,7 +18,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: ['axios'],
+    boot: [],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: ['app.scss'],
@@ -32,7 +32,7 @@ module.exports = configure(function (/* ctx */) {
       // 'themify',
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
+      'material-symbols-outlined',
       'roboto-font', // optional, you are not bound to it
       'material-icons', // optional, you are not bound to it
     ],
@@ -67,7 +67,6 @@ module.exports = configure(function (/* ctx */) {
         [
           'unplugin-vue-router/vite',
           {
-            // 라우터 설정 !
             routesFolder: [
               {
                 src: 'src/pages',
@@ -77,7 +76,6 @@ module.exports = configure(function (/* ctx */) {
                 path: 'admin/',
               },
             ],
-            // 제외할 컴포넌트
             exclude: ['**/components/**'],
           },
         ],
@@ -194,7 +192,7 @@ module.exports = configure(function (/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'cse-management-web',
+        appId: 'cse-managemet-wep',
       },
     },
 

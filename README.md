@@ -1,4 +1,4 @@
-# CSE Management Web (cse-management-web)
+# CSE MANAGEMET WEB (cse-managemet-wep)
 
 Admin & User Quiz Creation Management Web
 

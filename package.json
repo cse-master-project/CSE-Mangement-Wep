@@ -1,8 +1,8 @@
 {
-  "name": "cse-management-web",
+  "name": "cse-managemet-wep",
   "version": "0.0.1",
   "description": "Admin & User Quiz Creation Management Web",
-  "productName": "CSE Management Web",
+  "productName": "CSE MANAGEMET WEB",
   "author": "ZOODUDDLDI <wndud238561@gmail.com>",
   "private": true,
   "scripts": {
@@ -14,8 +14,6 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
-    "axios": "^1.2.1",
-    "pinia": "^2.0.11",
     "quasar": "^2.8.0",
     "vue": "^3.4.18",
     "vue-router": "^4.0.12"
@@ -28,8 +26,8 @@
     "eslint-plugin-vue": "^9.0.0",
     "postcss": "^8.4.14",
     "prettier": "^2.5.1",
-    "unplugin-vue-router": "^0.8.6",
-    "vite": "^5.2.9",
+    "unplugin-vue-router": "^0.8.5",
+    "vite": "^5.2.8",
     "vite-plugin-checker": "^0.6.4",
     "vite-plugin-vue-layouts": "^0.11.0"
   },
