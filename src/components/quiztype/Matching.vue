@@ -30,11 +30,13 @@
 
         <div class="wrapper">
           <div class="left">
+            <!--왼쪽그룹-->
             <q-input label="a" v-model="leftOptions.a" outlined />
             <q-input label="b" v-model="leftOptions.b" outlined />
             <q-input label="c" v-model="leftOptions.c" outlined />
           </div>
           <div class="right">
+            <!--오른쪽 그룹-->
             <q-input label="a`" v-model="rightOptions.a" outlined />
             <q-input label="b`" v-model="rightOptions.b" outlined />
             <q-input label="c`" v-model="rightOptions.c" outlined />
@@ -122,8 +124,17 @@ const rightOptions = ref({
   c: '',
 });
 const commentary = ref('');
-const emits = defineEmits(['change-quiz-type']);
 
+//첨부파일명 표시
+const fileName = ref('');
+const fileInputHandler = event => {
+  const files = event.target && event.target.files;
+  if (files && files[0]) {
+    fileName.value = event.target.files[0].name;
+  }
+};
+
+const emits = defineEmits(['change-quiz-type']);
 const goBack = () => {
   emits('change-quiz-type', '');
 };
