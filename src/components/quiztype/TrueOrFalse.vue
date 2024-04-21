@@ -55,7 +55,7 @@
           class="backbtn"
           @click="goBack()"
           style="width: 10%; margin: 3% 1%"
-          >뒤로</q-btn
+          >뒤로가기</q-btn
         >
 
         <q-btn
