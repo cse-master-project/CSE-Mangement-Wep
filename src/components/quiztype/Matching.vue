@@ -28,7 +28,7 @@
           maxlength="300"
         />
 
-        <div class="wrapper">
+        <div class="option-container">
           <div class="left">
             <!--왼쪽그룹-->
             <q-input label="a" v-model="leftOptions.a" outlined />
@@ -43,16 +43,22 @@
           </div>
         </div>
 
-        <q-input
-          type="textarea"
-          v-model="answer"
-          outlined
-          placeholder="답을 입력해주세요 ex) atoa`,btoc`"
-          autogrow
-          class="q-mb-md"
-          maxlength="20"
-          style="width: 30%"
-        />
+        <div>
+          <div v-for="(answer, index) in answers" :key="index" class="q-mb-md">
+            <q-input
+              v-model="answers[index]"
+              type="text"
+              class="q-mb-md"
+              outlined
+              placeholder="답을 입력해주세요"
+              style="margin: 3% 0; width: 30%"
+            />
+            <!--툴팁입니다. -->
+            <q-tooltip style="font-size: 1rem">
+              ata`,btc`처럼 입력해주세요
+            </q-tooltip>
+          </div>
+        </div>
 
         <q-input
           v-model="commentary"
@@ -115,7 +121,7 @@ const subCategoryOptions = [
 const mainCategory = ref('');
 const subCategory = ref('');
 const question = ref('');
-const answer = ref('');
+const answers = ref(['']);
 const leftOptions = ref({
   a: '',
   b: '',
@@ -129,6 +135,7 @@ const rightOptions = ref({
 });
 const commentary = ref('');
 
+const usertooltip = 'ata`, btc`처럼 입력해주세요';
 //첨부파일명 표시
 const fileName = ref('');
 const fileInputHandler = event => {
@@ -148,7 +155,7 @@ const submitQuiz = () => {
     mainCategory: mainCategory.value, //대
     subCategory: subCategory.value, //소
     question: question.value, //문제
-    answer: answer.value, //답
+    answers: answers.value, //답
     leftOptions: leftOptions.value, //왼쪽그룹
     rightOptions: rightOptions.value, //오른쪽그룹
     commentary: commentary.value, //해설
@@ -160,7 +167,7 @@ const submitQuiz = () => {
 <style scoped lang="scss">
 @import '/src\css\QuizBtn.css';
 
-.wrapper {
+.option-container {
   display: flex;
   margin: 30px 0;
 }
