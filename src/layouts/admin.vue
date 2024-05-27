@@ -27,6 +27,7 @@
         />
         <q-btn stretch flat label="미승인 문제" to="/admin/adminNotapproved" />
         <q-btn stretch flat label="신고 문제" to="/admin/adminReported" />
+        <q-btn stretch flat label="로그인" to="/admin/login" />
       </q-toolbar>
     </q-header>
     <q-page-container style="max-width: 1080px; margin: 0 auto">

@@ -92,6 +92,8 @@
 
 <script setup>
 import { ref, defineEmits, watch } from 'vue';
+import { api } from 'src/boot/axios';
+import { useManagerStore } from 'src/stores/auth';
 
 const emits = defineEmits(['change-quiz-type']);
 const goBack = () => {
@@ -142,7 +144,7 @@ const commentary = ref('');
 
 const submitQuiz = () => {
   const quizData = {
-    subjectId: subject.value,
+    subject: subject.value,
     detailSubject: detailSubjet.value,
     jsonContent: JSON.stringify({
       type: '1',
@@ -151,8 +153,26 @@ const submitQuiz = () => {
       answer: answer.value,
       commentary: commentary.value,
     }),
+    hasImage: false,
   };
   console.log('서버에 제출될 데이터:', quizData);
+  const managerStore = useManagerStore();
+  const accessToken = managerStore.accessToken;
+
+  api
+    .post('/api/quiz/default', quizData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then(response => {
+      console.log('서버 응답:', response.data);
+      // 성공적으로 서버에 데이터를 전송한 후의 동작
+    })
+    .catch(error => {
+      console.error('서버 응답 오류:', error);
+      // 서버에 데이터 전송 중 오류가 발생한 경우의 동작
+    });
 };
 </script>
 
