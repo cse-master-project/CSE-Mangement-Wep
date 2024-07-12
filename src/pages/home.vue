@@ -4,7 +4,9 @@
       <div class="col-6 col-md-8">
         <q-card flat class="q-pa-md text-left">
           <q-card-section>
-            <div class="text-h4">경상국립대 컴공 신입생의 첫걸음</div>
+            <div class="text-h4" style="font-weight: bold">
+              경상국립대 컴공 신입생의 첫걸음
+            </div>
             <div class="text-subtitle1" style="margin: 20px 0">
               복습에서부터 성공까지, 당신을 안내합니다.
             </div>
@@ -27,33 +29,55 @@
         </q-card>
       </div>
       <div class="col-6 col-md-4">
-        <img src="/gnu.jpeg" class="full-width" alt="경상국립대 이미지" />
+        <img src="/gnu.jpg" class="full-width" alt="경상국립대 이미지" />
       </div>
     </div>
   </q-page>
-  <div class="down">
-    <a href="#" class="link-wrapper">
-      <div class="img-wrapper">
-        <img src="/apple-logo.png" />
-      </div>
-      <div class="content-wrapper">
-        <h6>App Store</h6>
-      </div>
-    </a>
-
-    <a href="#" class="link-wrapper">
-      <div class="img-wrapper">
-        <img src="/google-play.png" />
-      </div>
-      <div class="content-wrapper">
-        <h6>Google Play</h6>
-      </div>
-    </a>
-  </div>
 </template>
 
-<script setup>
-// 필요한 스크립트를 여기에 추가
+<script>
+export default {
+  methods: {
+    redirectToGoogle() {
+      const clientId =
+        '952226683996-giormhm5n1ch6vig4n2h0ng5vc9t0p0h.apps.googleusercontent.com';
+      const redirectUri = 'http://localhost:9000/';
+      const scope = 'https://www.googleapis.com/auth/userinfo.profile';
+      const responseType = 'code';
+      const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
+      window.location.href = url;
+    },
+
+    async exchangeCodeForToken(code) {
+      try {
+        const response = await fetch('http://localhost:9000/token', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    },
+  },
+
+  created() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    if (code) {
+      this.exchangeCodeForToken(code);
+    }
+  },
+};
 </script>
 
 <style>
@@ -120,6 +144,5 @@ img {
 
 .down {
   display: flex;
-  margin-top: -40px; /* 마진 상단 값을 조절하여 더 위로 올립니다. 필요에 따라 값을 조정하세요. */
 }
 </style>
