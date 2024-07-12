@@ -1,33 +1,38 @@
 <template>
   <q-form class="q-pa-md">
+    <div class="title-container">
+      <q-title class="title">빈칸채우기</q-title>
+    </div>
     <q-card>
       <q-card-section>
         <!-- 대분류 선택 -->
+        <q-label>과목<span class="required">*</span></q-label>
         <q-select
           v-model="subject"
           :options="subjectOptions"
-          label="대분류"
           outlined
           class="q-mb-md"
           @update:model-value="updateDetailSubjectOptions"
         />
         <!-- 소분류 선택 -->
+        <q-label>챕터<span class="required">*</span></q-label>
         <q-select
           v-model="detailSubject"
           :options="filteredDetailSubjectOptions"
-          label="소분류"
           outlined
           class="q-mb-md"
         />
         <!-- 문제 입력 -->
         <div>
+          <q-label>문제<span class="required">*</span></q-label>
           <q-input
             v-model="quiz"
             type="textarea"
             outlined
-            rows="4"
+            rows="3"
             placeholder="문제를 입력해주세요"
-            maxlength="300"
+            maxlength="100"
+            counter
             class="q-mb-md"
           />
           <q-tooltip style="font-size: 1rem">
@@ -36,6 +41,7 @@
         </div>
 
         <!-- 답변 입력 -->
+        <q-label>답안<span class="required">*</span></q-label>
         <div v-for="(answer, index) in answers" :key="index" class="q-mb-md">
           <q-input
             v-model="answers[index]"
@@ -43,11 +49,11 @@
             class="q-mb-md"
             outlined
             placeholder="답을 입력해주세요"
-            style="margin: 3% 0; width: 30%"
           />
         </div>
 
         <!-- 해설 입력 -->
+        <q-label>해설<span class="required">*</span></q-label>
         <q-input
           v-model="commentary"
           type="textarea"
@@ -55,9 +61,9 @@
           outlined
           autogrow
           class="q-mb-md"
-          style="margin: 3% 0"
         />
-
+      </q-card-section>
+      <q-card-section>
         <!-- 파일 첨부 -->
         <section class="container">
           <label for="file">
@@ -176,6 +182,4 @@ const submitQuiz = () => {
 
 <style scoped lang="scss">
 @import '/src/css/QuizBtn.css';
-
-/* 추가적인 스타일링은 필요에 따라 적용하세요 */
 </style>

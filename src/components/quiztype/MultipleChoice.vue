@@ -1,33 +1,38 @@
 <template>
   <!-- 퀴즈 등록 폼 -->
   <q-form class="q-pa-md">
+    <div class="title-container">
+      <q-title class="title">4지선다</q-title>
+    </div>
     <q-card>
       <q-card-section>
         <!-- 대분류 선택 -->
+        <q-label>과목 <span class="required">*</span></q-label>
         <q-select
           v-model="subject"
           :options="subjectOptions"
-          label="대분류"
           outlined
           class="q-mb-md"
           @update:model-value="updateDetailSubjectOptions"
         />
         <!-- 소분류 선택 -->
+        <q-label>챕터 <span class="required">*</span></q-label>
         <q-select
           v-model="detailSubject"
           :options="filteredDetailSubjectOptions"
-          label="소분류"
           outlined
           class="q-mb-md"
         />
         <!-- 문제 입력 -->
+        <q-label>문제 <span class="required">*</span></q-label>
         <q-input
           v-model="quiz"
           type="textarea"
           outlined
-          rows="4"
+          rows="3"
           placeholder="문제를 입력해주세요"
-          maxlength="300"
+          maxlength="100"
+          counter
           class="q-mb-md"
         />
 
@@ -37,10 +42,10 @@
           :key="`choice-${index}`"
           class="choice-container"
         >
+          <q-label>보기 {{ index }} <span class="required">*</span></q-label>
           <q-input
             v-model="option[index - 1].label"
             type="textarea"
-            :label="'보기 ' + index"
             outlined
             autogrow
             style="margin: 10px 0"
@@ -49,23 +54,26 @@
         </div>
 
         <!-- 정답 입력 (숫자만 가능) -->
+
+        <q-label>정답 (Only Number) <span class="required">*</span></q-label>
         <q-input
           v-model.number="answer"
           type="number"
-          label="정답 (숫자 입력)"
           outlined
+          :min="1"
+          :max="4"
           style="width: 20%"
           class="q-mb-md"
         />
 
         <!-- 해설 입력 -->
+        <q-label>해설<span class="required">*</span></q-label>
         <q-input
           v-model="commentary"
           type="textarea"
-          placeholder="해설을 입력해주세요"
           outlined
           autogrow
-          style="margin: 3% 0"
+          class="q-mb-md"
         />
       </q-card-section>
 

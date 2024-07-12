@@ -1,81 +1,75 @@
 <template>
   <q-form class="q-pa-md">
+    <div class="title-container">
+      <q-title class="title">선긋기</q-title>
+    </div>
     <q-card>
       <q-card-section>
         <!-- 대분류 선택 -->
+        <q-label>과목<span class="required">*</span></q-label>
         <q-select
           v-model="subject"
           :options="subjectOptions"
-          label="대분류"
           outlined
           class="q-mb-md"
           @update:model-value="updateDetailSubjectOptions"
         />
         <!-- 소분류 선택 -->
+        <q-label>챕터<span class="required">*</span></q-label>
         <q-select
           v-model="detailSubject"
           :options="filteredDetailSubjectOptions"
-          label="소분류"
           outlined
           class="q-mb-md"
         />
         <!-- 문제 입력 -->
+        <q-label>문제<span class="required">*</span></q-label>
         <q-input
           v-model="quiz"
           type="textarea"
           outlined
-          rows="4"
-          placeholder="문제를 입력해주세요"
-          maxlength="300"
+          rows="3"
+          maxlength="100"
           class="q-mb-md"
+          counter
         />
 
         <!-- 왼쪽 그룹 옵션 입력 -->
         <div class="option-container">
           <div class="left">
-            <q-input
-              v-model="leftOptions[0]"
-              outlined
-              placeholder="왼쪽 그룹의 옵션을 입력하세요"
-              class="q-mb-md"
-            />
-            <q-input
-              v-model="leftOptions[1]"
-              outlined
-              placeholder="왼쪽 그룹의 옵션을 입력하세요"
-              class="q-mb-md"
-            />
-            <q-input
-              v-model="leftOptions[2]"
-              outlined
-              placeholder="왼쪽 그룹의 옵션을 입력하세요"
-              class="q-mb-md"
-            />
+            <div>
+              <q-label>a-1</q-label>
+              <q-input v-model="leftOptions[0]" outlined class="q-mb-md" />
+            </div>
+
+            <div>
+              <q-label>a-2</q-label>
+              <q-input v-model="leftOptions[1]" outlined class="q-mb-md" />
+            </div>
+            <div>
+              <q-label>a-3</q-label>
+              <q-input v-model="leftOptions[2]" outlined class="q-mb-md" />
+            </div>
           </div>
           <!-- 오른쪽 그룹 옵션 입력 -->
           <div class="right">
-            <q-input
-              v-model="rightOptions[0]"
-              outlined
-              placeholder="오른쪽 그룹의 옵션을 입력하세요"
-              class="q-mb-md"
-            />
-            <q-input
-              v-model="rightOptions[1]"
-              outlined
-              placeholder="오른쪽 그룹의 옵션을 입력하세요"
-              class="q-mb-md"
-            />
-            <q-input
-              v-model="rightOptions[2]"
-              outlined
-              placeholder="오른쪽 그룹의 옵션을 입력하세요"
-              class="q-mb-md"
-            />
+            <div>
+              <q-label>b-1</q-label>
+              <q-input v-model="rightOptions[0]" outlined class="q-mb-md" />
+            </div>
+            <div>
+              <q-label>b-2</q-label>
+              <q-input v-model="rightOptions[1]" outlined class="q-mb-md" />
+            </div>
+            <div>
+              <q-label>b-3</q-label>
+              <q-input v-model="rightOptions[2]" outlined class="q-mb-md" />
+            </div>
           </div>
         </div>
 
         <!-- 정답 입력 -->
+        <q-label>답안<span class="required">*</span></q-label>
         <div v-for="(answer, index) in answers" :key="index" class="q-mb-md">
           <q-input
             v-model="answers[index]"
@@ -87,16 +81,18 @@
         </div>
 
         <!-- 해설 입력 -->
+        <q-label>해설<span class="required">*</span></q-label>
         <q-input
           v-model="commentary"
           type="textarea"
-          placeholder="해설을 입력해주세요"
           outlined
           autogrow
-          style="margin: 3% 0"
+          class="q-mb-md"
         />
+      </q-card-section>
+      <!-- 파일 첨부 섹션 -->
 
-        <!-- 파일 첨부 섹션 -->
+      <q-card-section>
         <section class="container">
           <label for="file">
             <div class="styled-file-input">
@@ -226,6 +222,8 @@ const submitQuiz = () => {
 </script>
 
 <style scoped lang="scss">
+@import '/src/css/QuizBtn.css';
+
 .option-container {
   display: flex;
   margin: 30px 0;
@@ -236,7 +234,7 @@ const submitQuiz = () => {
   display: flex;
   flex-direction: column;
   margin: 10px auto;
-  width: 300px;
+  width: 400px;
 }
 
 .left > *,

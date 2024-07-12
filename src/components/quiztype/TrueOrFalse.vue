@@ -1,45 +1,58 @@
 <template>
   <q-form class="q-pa-md">
+    <div class="title-container">
+      <q-title class="title">OX</q-title>
+    </div>
     <q-card>
-      <q-card-section>
+      <q-card-section class="cs">
         <!-- 대분류 선택 -->
+        <q-label>과목<span class="required">*</span></q-label>
         <q-select
           v-model="subject"
           :options="subjectOptions"
-          label="대분류"
           outlined
           class="q-mb-md"
           @update:model-value="updateDetailSubjectOptions"
         />
         <!-- 소분류 선택 -->
+        <q-label>챕터<span class="required">*</span></q-label>
         <q-select
           v-model="detailSubject"
           :options="filteredDetailSubjectOptions"
-          label="소분류"
           outlined
           class="q-mb-md"
         />
         <!-- 문제 입력 -->
+        <q-label>문제<span class="required">*</span></q-label>
         <q-input
           v-model="quiz"
           type="textarea"
+          rows="3"
           outlined
-          rows="4"
           placeholder="문제를 입력해주세요"
-          maxlength="300"
+          maxlength="100"
+          counter
           class="q-mb-md"
         />
         <!-- O/X 선택 -->
-        <q-option-group v-model="selectedAnswer" :options="options" inline />
+        <q-label>답안<span class="required">*</span></q-label>
+        <q-option-group
+          v-model="selectedAnswer"
+          :options="options"
+          class="q-mb-md large-option-group"
+        />
         <!-- 해설 입력 -->
+        <q-label>해설<span class="required">*</span></q-label>
         <q-input
           v-model="commentary"
           type="textarea"
           placeholder="해설을 입력해주세요"
           outlined
           autogrow
-          style="margin: 3% 0"
+          class="q-mb-md"
         />
+      </q-card-section>
+      <q-card-section class="cs">
         <!-- 파일 첨부 섹션 -->
         <section class="container">
           <label for="file">
@@ -52,7 +65,7 @@
         </section>
       </q-card-section>
       <!-- 액션 버튼 섹션 -->
-      <q-card-actions align="right">
+      <q-card-actions align="right" class="cs">
         <q-btn
           class="backbtn"
           @click="goBack"
@@ -161,21 +174,5 @@ const submitQuiz = () => {
 </script>
 
 <style scoped lang="scss">
-.option-container {
-  display: flex;
-  margin: 30px 0;
-}
-
-.left,
-.right {
-  display: flex;
-  flex-direction: column;
-  margin: 10px auto;
-  width: 300px;
-}
-
-.left > *,
-.right > * {
-  margin: 10px 0;
-}
+@import '/src/css/QuizBtn.css';
 </style>
