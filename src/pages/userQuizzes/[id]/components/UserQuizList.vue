@@ -1,23 +1,78 @@
 <template>
   <q-page padding>
-    <q-list bordered class="rounded-borders">
-      <q-item
+    <!-- Filters -->
+    <div class="row q-col-gutter-md q-py-md">
+      <div class="col-12 col-md-3 q-my-md">
+        <q-select
+          v-model="selectedSubject"
+          :options="subjects"
+          label="과목"
+          outlined
+          dense
+        />
+      </div>
+      <div class="col-12 col-md-3 q-my-md">
+        <q-select
+          v-model="selectedChapter"
+          :options="chapters"
+          label="챕터"
+          outlined
+          dense
+        />
+      </div>
+      <div class="col-12 col-md-3 q-my-md">
+        <q-select
+          v-model="selectedApproval"
+          :options="approvalStatuses"
+          label="승인 여부"
+          outlined
+          dense
+        />
+      </div>
+      <div class="col-12 col-md-3 q-my-md">
+        <q-select
+          v-model="selectedQuestionType"
+          :options="questionTypes"
+          label="문제 유형"
+          outlined
+          dense
+        />
+      </div>
+    </div>
+    <div class="row q-col-gutter-md q-pt-md">
+      <div class="col-12 col-md-6 q-my-md">
+        <q-btn label="초기화" class="full-width"></q-btn>
+      </div>
+      <div class="col-12 col-md-6 q-my-md">
+        <q-btn label="검색" class="full-width"></q-btn>
+      </div>
+    </div>
+
+    <!-- Quiz Cards -->
+    <div class="row q-col-gutter-md q-pt-md">
+      <div
         v-for="quiz in quizzes"
         :key="quiz.quizId"
-        clickable
-        v-ripple
-        @click="goToQuizDetail(quiz.quizId)"
+        class="col-12 col-md-6 q-my-md"
       >
-        <q-item-section>
-          <q-item-label>{{ quiz.subject }}</q-item-label>
-          <q-item-label caption>{{ quiz.detailSubject }}</q-item-label>
-        </q-item-section>
+        <q-card
+          class="my-card"
+          clickable
+          v-ripple
+          @click="goToQuizDetail(quiz.quizId)"
+          style="cursor: pointer"
+        >
+          <q-card-section>
+            <div class="text-h6">{{ quiz.subject }}</div>
+            <div class="text-subtitle2">{{ quiz.detailSubject }}</div>
+          </q-card-section>
 
-        <q-item-section side top>
-          <QuizPermssionStatus :quiz="quiz" />
-        </q-item-section>
-      </q-item>
-    </q-list>
+          <q-card-section>
+            <QuizPermssionStatus :quiz="quiz" />
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -63,6 +118,51 @@ const quizzes = ref([
       '{"type":"4","quiz":"스택","left_option":["1","2","3"],"right_option":["one","two","three"],"answer":["ata","btb","ctc"],"commentary":"해설^_^"}',
     createAt: '2024-04-27T11:42:00.000Z',
     permission: 0,
+  },
+  {
+    quizId: 5,
+    subject: '자료구조',
+    detailSubject: '스택',
+    jsonContent:
+      '{"type":"5","quiz":"스택은 ( ) 이다.","answer":["LIFO"],"commentary":"해설^_^"}',
+    createAt: '2024-04-27T11:42:00.000Z',
+    permission: 1,
+  },
+  {
+    quizId: 6,
+    subject: '자료구조',
+    detailSubject: '스택',
+    jsonContent:
+      '{"type":"5","quiz":"스택은 ( ) 이다.","answer":["LIFO"],"commentary":"해설^_^"}',
+    createAt: '2024-04-27T11:42:00.000Z',
+    permission: 1,
+  },
+  {
+    quizId: 7,
+    subject: '자료구조',
+    detailSubject: '스택',
+    jsonContent:
+      '{"type":"5","quiz":"스택은 ( ) 이다.","answer":["LIFO"],"commentary":"해설^_^"}',
+    createAt: '2024-04-27T11:42:00.000Z',
+    permission: 1,
+  },
+  {
+    quizId: 8,
+    subject: '자료구조',
+    detailSubject: '스택',
+    jsonContent:
+      '{"type":"5","quiz":"스택은 ( ) 이다.","answer":["LIFO"],"commentary":"해설^_^"}',
+    createAt: '2024-04-27T11:42:00.000Z',
+    permission: 1,
+  },
+  {
+    quizId: 5,
+    subject: '자료구조',
+    detailSubject: '스택',
+    jsonContent:
+      '{"type":"5","quiz":"스택은 ( ) 이다.","answer":["LIFO"],"commentary":"해설^_^"}',
+    createAt: '2024-04-27T11:42:00.000Z',
+    permission: 1,
   },
   {
     quizId: 5,
