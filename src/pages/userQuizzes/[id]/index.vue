@@ -23,7 +23,9 @@
         />
       </q-card-section>
 
-      <!-- TODO permissionStatus(0:대기,1:승인,2:거절) -->
+      <!-- <q-card-section>
+        <QuizPermssionStatus :quiz="quizPermissionStatus" />
+      </q-card-section> -->
     </q-card>
   </q-page>
 </template>
@@ -33,6 +35,7 @@ import { ref, computed, defineAsyncComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { api } from 'src/boot/axios';
 import { date } from 'quasar';
+import QuizPermssionStatus from 'src/components/quiz/QuizPermissionStatus.vue';
 
 const quizzes = ref([]);
 const route = useRoute(); // 현재 라우터 파라미터 가져오기
@@ -55,6 +58,7 @@ const formatDate = dateString => {
 
 onMounted(() => {
   fetchQuizzes();
+  fetchQuizzes2();
 });
 
 //JSON 파싱.
@@ -97,6 +101,21 @@ const quizTypeViewForm = quizType => {
       return null;
   }
 };
+
+//T0DO 승인 미승인
+// const quiz = ref([]);
+// const quizPermissionStatus = ref();
+// const fetchQuizzes2 = async () => {
+//   try {
+//     const response = await api.get('/api/quiz/my');
+//     quiz.value = response.data;
+//     console.log('퀴즈목록 : ', quiz.value);
+//     quizPermissionStatus.value = quiz.value.map(p => p.permissionStatus);
+//     console.log('퀴즈목록 : ', quiz.value);
+//   } catch (error) {
+//     console.error('퀴즈 데이터를 불러오는데 실패했습니다.', error);
+//   }
+// };
 </script>
 
 <style scoped>
