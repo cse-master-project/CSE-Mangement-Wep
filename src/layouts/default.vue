@@ -2,41 +2,103 @@
   <q-layout view="lHh Lpr lff">
     <q-header bordered class="bg-info">
       <!-- 툴바 & 제목 -->
-      <q-toolbar class="flex justify-between">
-        <q-btn flat dense to="/">
-          <q-toolbar-title>
+      <q-toolbar class="toolbar">
+        <q-btn flat dense to="/" class="toolbar-item">
+          <q-toolbar-title class="title">
             <q-avatar>
-              <img src="/gnu.jpeg" />
+              <img src="/gnu2.jpg" />
             </q-avatar>
-            CSE
+            CSLU
           </q-toolbar-title>
         </q-btn>
 
-        <q-btn stretch flat label="홈" to="/" />
-        <q-btn stretch flat label="서비스 소개" to="/about" />
-        <q-btn stretch flat label="문제 만들기" to="/create" />
-        <q-btn stretch flat label="문제 관리" to="/management" />
+        <q-btn
+          stretch
+          flat
+          label="홈"
+          to="/"
+          class="toolbar-item"
+          :class="{ active: isActive('/') }"
+        />
+        <q-btn
+          stretch
+          flat
+          label="서비스 소개"
+          to="/about"
+          class="toolbar-item"
+          :class="{ active: isActive('/about') }"
+        />
+        <q-btn
+          stretch
+          flat
+          label="문제 만들기"
+          to="/create"
+          class="toolbar-item"
+          v-if="isUserLoggedIn"
+          :class="{ active: isActive('/create') }"
+        />
+        <q-btn
+          stretch
+          flat
+          label="문제 관리"
+          to="/management"
+          class="toolbar-item"
+          v-if="isUserLoggedIn"
+          :class="{ active: isActive('/management') }"
+        />
+        <q-btn
+          stretch
+          flat
+          label="마이 페이지"
+          to="/mypage"
+          class="toolbar-item"
+          v-if="isUserLoggedIn"
+          :class="{ active: isActive('/mypage') }"
+        />
 
         <q-btn
+          v-if="!isUserLoggedIn"
           rounded
           label="로그인"
           color="light-blue-13"
-          @click="openAuthDialog"
+          @click="isLogin = true"
+          @update:isLogin="false"
+          class="toolbar-item"
+        />
+        <q-btn
+          v-if="isUserLoggedIn"
+          rounded
+          label="로그아웃"
+          color="orange"
+          @click="isLogout = true"
         />
       </q-toolbar>
     </q-header>
     <q-page-container :style="pageContainerStyles">
       <router-view />
     </q-page-container>
-    <AuthDialog v-model="authDialog" />
+    <q-footer>
+      <footerbar>CSLU © 2024 . All Rights Reserved. </footerbar></q-footer
+    >
+    <UserLoginGoogle
+      v-if="isLogin"
+      :is-login="isLogin"
+      @update:isLogin="isLogin = false"
+    />
+    <UserLogout
+      v-if="isLogout"
+      :is-logout="isLogout"
+      @update:isLogout="isLogout = false"
+    />
   </q-layout>
 </template>
+
 <script setup>
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
-
-//로그인 다이얼로그
-import AuthDialog from 'src/components/auth/AuthDialog.vue';
+import UserLoginGoogle from 'src/components/auth/UserLoginGoogle.vue';
+import { useUserAuthStore } from 'src/stores/userAuth'; //사용자 인증 상태관리
+import UserLogout from 'src/components/auth/UserLogout.vue';
 
 // 페이지 크기를 나타내는 코드.
 const route = useRoute();
@@ -45,9 +107,65 @@ const pageContainerStyles = computed(() => ({
   maxWidth: route.meta?.width || '1080px',
   margin: '0 auto',
 }));
+
 //로그인 다이얼로그상태
-const authDialog = ref(false);
-const openAuthDialog = () => (authDialog.value = true);
+const isLogin = ref(false);
+
+// 관리자 스토어 가져오기
+const userStore = useUserAuthStore();
+// 로그인 상태를 나타내는 반응형 데이터
+const isUserLoggedIn = computed(() => userStore.isAuthenticated);
+
+//로그아웃 기능
+const isLogout = ref(false);
+
+// 현재 경로와 비교하여 활성화된 버튼을 감지하는 함수
+const isActive = path => route.path === path;
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.q-header {
+  height: 8%; /* 헤더 높이 조정 */
+  display: flex;
+  align-items: center; /* 헤더 내부 요소 중앙 정렬 */
+  justify-content: center; /* 헤더 내부 요소 중앙 정렬 */
+}
+.q-footer {
+  height: 100px;
+  border: 1px solid #dddddd;
+  background-color: white;
+  color: black;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toolbar {
+  width: 70%; /* 툴바 너비 조정 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* 툴바 내부 요소 중앙 정렬 */
+}
+
+.toolbar-item {
+  margin-left: 16px; /* 필요에 따라 조정 */
+  margin-right: 16px; /* 필요에 따라 조정 */
+  font-size: 1.1rem; /* 글씨 크기 조정 */
+  position: relative;
+}
+
+.toolbar-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; /* 밑줄 위치 조정 */
+  left: 0;
+  right: 0;
+  height: 2px; /* 밑줄 두께 */
+  background-color: currentColor; /* 글씨 색상과 동일한 색상 */
+}
+
+.title {
+  font-size: 1.8rem; /* 제목 글씨 크기 조정 */
+  font-weight: bold;
+}
+</style>
